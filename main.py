@@ -7,4 +7,9 @@ reddit = praw.Reddit(client_id=config.CLIENT_ID,
                      username=config.USERNAME,
                      password=config.PASSWORD)
 
-print(reddit.read_only)
+resolutions_post = reddit.submission(id="a9yzx0")
+print(resolutions_post.title)
+
+resolution_comments = list(resolutions_post.comments)
+print(len(resolution_comments))
+print(resolution_comments[0].body)
