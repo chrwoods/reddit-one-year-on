@@ -1,9 +1,10 @@
 import praw
+import time
 import config
 
-message = '''/u/%s
+MESSAGE = '''/u/%s
 
-Two years ago you posted what you wanted to achieve in 2019, and today I'm messaging you to see how you did over the past 24 months!
+Two years ago you posted what you wanted to achieve in 2019, and today I'm messaging you to see how you did over both 2019 and 2020!
 
 Your goal was:
 
@@ -15,28 +16,25 @@ reddit = praw.Reddit(client_id=config.CLIENT_ID,
                      username=config.USERNAME,
                      password=config.PASSWORD)
 
-post = reddit.submission(id="a9yzx0")
-# post.comment_sort = 'new'
+old_post = reddit.submission(id='a9yzx0')
+old_post.comment_sort = 'new'
+old_post.comments.replace_more(limit=None)
 
-print(post.title)
+new_post = reddit.submission(id='ko3jg5')
 
-post.comments.replace_more(limit=None)
-comments = post.comments
+comments = old_post.comments
 
-print(len(comments))
 count = 0
 for comment in comments:
     if comment.author is None:
         continue
-    if comment.author.name != 'ChrisMan174':
-        continue
     
-    print(comment.author.name)
-    print(comment.body)
+    print(str(count) + ': ' + comment.author.name)
     indented_body = comment.body.replace('\n', '\n> ')
 
-    print(message % (comment.author.name, indented_body))
+    new_comment = MESSAGE % (comment.author.name, indented_body)
+    new_post.reply(new_comment)
+    # print(new_comment)
     
     count += 1
-    if count > 10:
-        break
+    time.sleep(0.2)
