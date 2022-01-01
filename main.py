@@ -4,7 +4,7 @@ import config
 
 MESSAGE = '''/u/%s
 
-Two years ago you posted what you wanted to achieve in 2019, and today I'm messaging you to see how you did over both 2019 and 2020!
+One year ago you posted what you wanted to achieve in 2021, and today I'm messaging you to see how you did!
 
 Your goal was:
 
@@ -16,11 +16,11 @@ reddit = praw.Reddit(client_id=config.CLIENT_ID,
                      username=config.USERNAME,
                      password=config.PASSWORD)
 
-old_post = reddit.submission(id='a9yzx0')
+old_post = reddit.submission(id='ko4ljg')
 old_post.comment_sort = 'new'
 old_post.comments.replace_more(limit=None)
 
-new_post = reddit.submission(id='ko3jg5')
+new_post = reddit.submission(id='rtqup3')
 
 comments = old_post.comments
 
